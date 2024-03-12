@@ -65,6 +65,10 @@ class PageView
 
             sessionStorage.setItem( 'session-tracker-expires', SESSION_EXPIRATION );
         }
+        else if( this._state !== 'idle' )
+        {
+            sessionStorage.setItem( 'session-tracker-expires', SESSION_EXPIRATION );
+        }
 
         if( this._state !== 'idle' )
         {
@@ -99,7 +103,7 @@ class Session
 
     _isExpired()
     {
-        if( this.pageView.state === 'idle' && this.pageView.changed < Date.now() - SESSION_EXPIRATION )
+        if( this.pageView && this.pageView.state === 'idle' ? this.pageView.changed + SESSION_EXPIRATION : localStorage.getItem( 'session-tracker-expires' ) < Date.now() )
         {
             this.id = ID();
             localStorage.setItem( 'session-tracker-id', this.id );
