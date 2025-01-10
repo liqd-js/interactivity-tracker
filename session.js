@@ -11,6 +11,7 @@ class PageView
         this._timeout = undefined;
 
         this.state = 'read';
+        this.started = new Date();
         this.changed = Date.now();
         
         this.sessionID = sessionID;
@@ -51,6 +52,7 @@ class PageView
                         url     : this.url,
                         referrer: this._options.referrer || document.referrer,
                         device  : { width: window.innerWidth, height: window.innerHeight },
+                        started : this.started,
                         interaction: 
                         {
                             timeline: this.timeline,
